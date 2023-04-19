@@ -1,5 +1,6 @@
 const {User, Thought} = require('../models');
 
+
 const userController = {
     getAllUsers(req, res){
         User.find()
@@ -16,6 +17,7 @@ const userController = {
             res.json(users);
         })
         .catch((err)=>{
+            console.log(err, "No user with that ID!");
             res.json(err);
         })
 
@@ -26,6 +28,7 @@ const userController = {
             res.json(users);
         })
         .catch((err)=>{
+            console.log(err, "Not able to create a user!");
             res.json(err);
         })
     },
@@ -35,9 +38,13 @@ const userController = {
             res.json(users);
         })
         .catch((err)=>{
+            console.log(err, "Not able to find and delete this user");
             res.json(err);
         })
     }
-// Update code required
+// Update code required to add Thoughts
+
+
 }
 
+module.exports = userController;
