@@ -1,10 +1,11 @@
 const {Schema, model} = require('mongoose');
 
 const thoughtSchema = new Schema({
-    thoughtText: {type: String,
+    thoughtText: {
+        type: String,
         required: true,
         minlength: 1,
-        maxlength: 280
+        maxlength: 280,
     },
     createdAt: {
         type: Date,
