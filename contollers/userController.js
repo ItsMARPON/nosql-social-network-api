@@ -23,6 +23,20 @@ const userController = {
         })
 
     },
+    updateUser(req, res){
+        User.findOneAndUpdate({_id: req.params.userId},
+            {$set: req.body},
+            {runValidators: true, new: true}
+            )
+        .then((users)=>{
+            res.json(users);
+        })
+        .catch((err)=>{
+            console.log(err, "No user with that ID!");
+            res.status(500).json(err);
+        })
+
+    },
     createUser(req, res){
         User.create(req.body)
         .then((users)=>{
