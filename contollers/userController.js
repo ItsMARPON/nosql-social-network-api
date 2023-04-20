@@ -1,3 +1,4 @@
+const { application } = require('express');
 const {User, Thought} = require('../models');
 
 
@@ -8,7 +9,7 @@ const userController = {
             res.json(users);
         })
         .catch((err)=>{
-            res.json(err);
+            res.status(500).json(err);
         })
     },
     getSingleUser(req, res){
@@ -18,7 +19,7 @@ const userController = {
         })
         .catch((err)=>{
             console.log(err, "No user with that ID!");
-            res.json(err);
+            res.status(500).json(err);
         })
 
     },
@@ -29,7 +30,7 @@ const userController = {
         })
         .catch((err)=>{
             console.log(err, "Not able to create a user!");
-            res.json(err);
+            res.status(500).json(err);
         })
     },
     deleteUser(req, res){
@@ -39,12 +40,38 @@ const userController = {
         })
         .catch((err)=>{
             console.log(err, "Not able to find and delete this user");
-            res.json(err);
+            res.status(500).json(err);
         })
-    }
-// Update code required to add Thoughts
+    },
+// Code required to add Thoughts
+    addThought(req, res){
+        application.findOneAndUpdate(
+            {_id: req.params.applicationId},
+            {$addToSet: {thoughts: req.body}},
+            {runValidators: true, new: true}
+        )
+        .then((application)=>
+        !application
+            ? res.status(404).json({message: 'No application with this id!'})
+            : res.json(application)
+            )
+        .catch((err)=> res.status(500).json(err));
+    },
+    // Remove application thoughts. This method finds the application based on ID. It then updates the thoughts array associated with the app in question by removing it's thoughtId from the thoughts array.
+    removeThought(req, res){
+        application.findOneAndUpdate(
+            {_id: req.params.applicationId},
+            {$pull: {thoughts: {thoughtsId: req.params.thoughtsId}}},
+            {runValidators: true, new: true}
+        )
+        .then((application)=>
+        !application
+            ? res.status(404).json({message: 'No application with this id!'})
+            : res.json(application)
+            )
+        .catch((err)=> res.status(500).json(err));    
+    },
 
-
-}
+};
 
 module.exports = userController;

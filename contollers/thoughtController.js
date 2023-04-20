@@ -1,3 +1,4 @@
+const { application } = require("express");
 const { Reaction, Thought, User } = require("../models");
 
 const thoughtController = {
@@ -41,6 +42,35 @@ const thoughtController = {
         res.json(err);
     });
   },
+// Code required to add Reactions
+  addReaction(req, res){
+    application.findOneAndUpdate(
+      {_id: req.params.applicationId},
+      {$addToSet: {reactions: req.body}},
+      {runValidators: true, new: true}
+    )
+    .then((application)=>
+    !application
+      ? res.status(404).json({message: "No Application (Reaction) with this id!"})
+      : res.json(application)
+      )
+    .catch((err)=> res.json(500).json(err));  
+  },
+  removeReaction(req, res){
+    application.findOneAndUpdate(
+      {_id: req.params.applicationId},
+      {$pill: {reactions: {reactionsId: req.params.reactionsId}}},
+      {runValidators: true, new: true}
+    )
+    .then((application)=>
+    !application
+      ? res.status(404).json({message: 'No application with this id!'})
+      : res.json(application)
+      )
+    .catch((err)=> res.status(500).json(err));
+  },
+
+
 };
 
 module.exports = thoughtController;
