@@ -57,19 +57,25 @@ const userController = {
             )
         .catch((err)=> res.status(500).json(err));
     },
-    // Remove application thoughts. This method finds the application based on ID. It then updates the thoughts array associated with the app in question by removing it's thoughtId from the thoughts array.
+    // Remove thoughts. This method finds the thought based on ID. It then updates the thoughts array associated with the user in question by removing it's thoughtId from the thoughts array.
     removeThought(req, res){
-        Thought.findOneAndUpdate(
-            {_id: req.params.thoughtsId},
-            {$pull: {thoughts: {thoughtsId: req.params.thoughtsId}}},
-            {runValidators: true, new: true}
-        )
+        Thought.findOneAndRemove({_id: req.params.thoughtsId})
         .then((thoughts)=>
         !thoughts
             ? res.status(404).json({message: 'No thought with this id!'})
-            : res.json(thoughts)
+            : User.findOneAndUpdate(
+                {thoughts: req.params.thoughtsId},
+                {$pull: {thoughts: req.params.thoughtsId}},
+                {new: true}
             )
-        .catch((err)=> res.status(500).json(err));    
+            )
+        .then((user)=>
+        !user 
+            ?res.status(404).json({message: 'Thought created but no user with this id!'})
+            : res.json({message: 'Thought successfully deleted!'})
+            )   
+            
+        .catch((err)=> res.status(500).json(err));
     },
 
 };
