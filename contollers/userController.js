@@ -45,29 +45,29 @@ const userController = {
     },
 // Code required to add Thoughts
     addThought(req, res){
-        application.findOneAndUpdate(
-            {_id: req.params.applicationId},
+        Thought.findOneAndUpdate(
+            {_id: req.params.thoughtsId},
             {$addToSet: {thoughts: req.body}},
             {runValidators: true, new: true}
         )
-        .then((application)=>
-        !application
-            ? res.status(404).json({message: 'No application with this id!'})
-            : res.json(application)
+        .then((thoughts)=>
+        !thoughts
+            ? res.status(404).json({message: 'No thought with this id!'})
+            : res.json(thoughts)
             )
         .catch((err)=> res.status(500).json(err));
     },
     // Remove application thoughts. This method finds the application based on ID. It then updates the thoughts array associated with the app in question by removing it's thoughtId from the thoughts array.
     removeThought(req, res){
-        application.findOneAndUpdate(
-            {_id: req.params.applicationId},
+        Thought.findOneAndUpdate(
+            {_id: req.params.thoughtsId},
             {$pull: {thoughts: {thoughtsId: req.params.thoughtsId}}},
             {runValidators: true, new: true}
         )
-        .then((application)=>
-        !application
-            ? res.status(404).json({message: 'No application with this id!'})
-            : res.json(application)
+        .then((thoughts)=>
+        !thoughts
+            ? res.status(404).json({message: 'No thought with this id!'})
+            : res.json(thoughts)
             )
         .catch((err)=> res.status(500).json(err));    
     },

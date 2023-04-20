@@ -57,15 +57,15 @@ const thoughtController = {
     .catch((err)=> res.json(500).json(err));  
   },
   removeReaction(req, res){
-    application.findOneAndUpdate(
-      {_id: req.params.applicationId},
+    Reaction.findOneAndUpdate(
+      {_id: req.params.reactionsId},
       {$pill: {reactions: {reactionsId: req.params.reactionsId}}},
       {runValidators: true, new: true}
     )
-    .then((application)=>
-    !application
-      ? res.status(404).json({message: 'No application with this id!'})
-      : res.json(application)
+    .then((reactions)=>
+    !reactions
+      ? res.status(404).json({message: 'No reaction with this id!'})
+      : res.json(reactions)
       )
     .catch((err)=> res.status(500).json(err));
   },
