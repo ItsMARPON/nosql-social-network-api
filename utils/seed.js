@@ -1,6 +1,6 @@
 const connection = require('../config/connection');
 const User = require('../models/User');
-const {users, thoughts} = require('./data');
+const {users, thoughts, reactions} = require('./data');
 
 
 // Creates a connection to mongodb

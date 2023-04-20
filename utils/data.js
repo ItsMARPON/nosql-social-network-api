@@ -1,12 +1,14 @@
 const users = [
-    'Kitty02',
-    'kitty02many@gmail.com'
+    {username: 'Kitty02', email: 'kitty02many@gmail.com'},
 ];
 
 const thoughts = [
-    'That was really cool!',
-    'I have another thought!',
+    {thoughtText: 'That was really cool!', username: 'Keroppi'},
+    {thoughtText: 'I have another thought!', username: 'Badtz-Maru'},
 ];
 
+const reactions = [
+    {reactionBody: 'This is my reaction (O_O)', username: 'Gudetama'},
+];
 
-module.exports = {users, thoughts};
+module.exports = {users, thoughts, reactions};
