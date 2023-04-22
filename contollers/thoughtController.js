@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Reaction, Thought, User } = require("../models");
 
 const thoughtController = {
+  // Function to get all Thoughts
   getThoughts(req, res) {
     Thought.find()
       .then((thoughts) => {
@@ -12,7 +13,7 @@ const thoughtController = {
         res.json(err);
       });
   },
-  
+// Function to get a Thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .then((thoughts) => {
@@ -23,7 +24,7 @@ const thoughtController = {
         res.json(err);
       });
   },
-
+// Function to Update a Thought
   updateThought(req, res){
     Thought.findOneAndUpdate({_id: req.params.userId},
       {$set: req.body},
@@ -37,7 +38,7 @@ const thoughtController = {
       res.status(500).json(err);
   })
   },
-
+// Function to create a Thought
   createThought(req, res) {
    Thought.create(req.body)
    .then((thoughts)=>{
@@ -57,7 +58,7 @@ const thoughtController = {
     res.json(user);
    })
   },
-
+// Function to Delete a Thought
   deleteThought(req, res){
     Thought.findOneAndDelete({_id: req.params.thoughtId})
     .then((thoughts)=>{
@@ -68,7 +69,7 @@ const thoughtController = {
         res.json(err);
     });
   },
-// Code required to add Reaction
+// Function to add a Reaction
   addReaction(req, res){
     Thought.findOneAndUpdate(
       {_id: req.params.thoughtId},
@@ -82,6 +83,7 @@ const thoughtController = {
       )
     .catch((err)=> res.json(500).json(err));  
   },
+  // Function to remove Reaction by reactionId
   removeReaction(req, res){
     Thought.findOneAndUpdate(
       {_id: req.params.thoughtId},
