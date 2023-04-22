@@ -1,8 +1,7 @@
 const connection = require('../config/connection');
 const User = require('../models/User');
 const Thought = require('../models/Thought');
-const Reaction = require('../models/Reaction');
-const {users, thoughts, reactions} = require('./data');
+const {users, thoughts} = require('./data');
 
 console.time('seeding');
 

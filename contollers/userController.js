@@ -50,7 +50,7 @@ const userController = {
     deleteUser(req, res){
         User.findOneAndDelete({_id: req.params.userId})
         .then((users)=>{
-            res.json(users);
+            res.json("User has been Deleted!");
         })
         .catch((err)=>{
             console.log(err, "Not able to find and delete this user");

@@ -20,7 +20,7 @@ const thoughtSchema = new Schema({
 },
 {
     timestamps: true,
-    id: true,
+    id: false,
     toJSON: {virtuals: true}
 }
 )
