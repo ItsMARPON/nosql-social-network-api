@@ -12,6 +12,7 @@ const thoughtController = {
         res.json(err);
       });
   },
+  
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .then((thoughts) => {
@@ -22,6 +23,7 @@ const thoughtController = {
         res.json(err);
       });
   },
+
   updateThought(req, res){
     Thought.findOneAndUpdate({_id: req.params.userId},
       {$set: req.body},
@@ -35,6 +37,7 @@ const thoughtController = {
       res.status(500).json(err);
   })
   },
+
   createThought(req, res) {
    Thought.create(req.body)
    .then((thoughts)=>{
@@ -54,6 +57,7 @@ const thoughtController = {
     res.json(user);
    })
   },
+
   deleteThought(req, res){
     Thought.findOneAndDelete({_id: req.params.thoughtId})
     .then((thoughts)=>{
@@ -64,7 +68,7 @@ const thoughtController = {
         res.json(err);
     });
   },
-// Code required to add Reactions
+// Code required to add Reaction
   addReaction(req, res){
     Thought.findOneAndUpdate(
       {_id: req.params.thoughtId},
@@ -73,8 +77,8 @@ const thoughtController = {
     )
     .then((thoughts)=>
     !thoughts
-      ? res.status(404).json({message: "No Reaction with this id!"})
-      : res.json(thoughts)
+      ? res.status(404).json({message: "No Thought with this id!"})
+      : res.json(thoughts, "Successfully added a Reaction!")
       )
     .catch((err)=> res.json(500).json(err));  
   },
