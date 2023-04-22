@@ -1,4 +1,4 @@
-const { application } = require("express");
+const router = require('express').Router();
 const { Reaction, Thought, User } = require("../models");
 
 const thoughtController = {
@@ -44,22 +44,22 @@ const thoughtController = {
   },
 // Code required to add Reactions
   addReaction(req, res){
-    application.findOneAndUpdate(
-      {_id: req.params.applicationId},
+    Reaction.findOneAndUpdate(
+      {_id: req.params.reactionId},
       {$addToSet: {reactions: req.body}},
       {runValidators: true, new: true}
     )
-    .then((application)=>
-    !application
-      ? res.status(404).json({message: "No Application (Reaction) with this id!"})
-      : res.json(application)
+    .then((reactions)=>
+    !reactions
+      ? res.status(404).json({message: "No Reaction with this id!"})
+      : res.json(reactions)
       )
     .catch((err)=> res.json(500).json(err));  
   },
   removeReaction(req, res){
     Reaction.findOneAndUpdate(
       {_id: req.params.reactionsId},
-      {$pill: {reactions: {reactionsId: req.params.reactionsId}}},
+      {$pull: {reactions: {reactionsId: req.params.reactionsId}}},
       {runValidators: true, new: true}
     )
     .then((reactions)=>
