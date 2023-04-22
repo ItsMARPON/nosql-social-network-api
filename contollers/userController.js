@@ -3,6 +3,7 @@ const {User, Thought} = require('../models');
 
 
 const userController = {
+// Get all  Users
     getAllUsers(req, res){
         User.find()
         .then((users)=>{
@@ -12,6 +13,7 @@ const userController = {
             res.status(500).json(err);
         })
     },
+// Function to get a User
     getSingleUser(req, res){
         User.findOne({_id: req.params.userId})
         .then((users)=>{
@@ -23,6 +25,7 @@ const userController = {
         })
 
     },
+// Function to udpate a User
     updateUser(req, res){
         User.findOneAndUpdate({_id: req.params.userId},
             {$set: req.body},
@@ -37,6 +40,7 @@ const userController = {
         })
 
     },
+// Function to Create a User
     createUser(req, res){
         User.create(req.body)
         .then((users)=>{
@@ -47,6 +51,7 @@ const userController = {
             res.status(500).json(err);
         })
     },
+// Function to delete a User
     deleteUser(req, res){
         User.findOneAndDelete({_id: req.params.userId})
         .then((users)=>{
@@ -57,7 +62,7 @@ const userController = {
             res.status(500).json(err);
         })
     },
-// Code required to add Thoughts
+// Function to add Thought
     addThought(req, res){
         Thought.findOneAndUpdate(
             {_id: req.params.thoughtsId},
@@ -91,7 +96,34 @@ const userController = {
             
         .catch((err)=> res.status(500).json(err));
     },
-
+// Function to add a Friend to User
+    addFriend(req, res){
+        User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$push: {friends: req.body}},
+            {runValidators: true, new: true}
+    )
+    .then((users)=>
+    !users
+        ? res.status(404).json({message: 'No User with this id!'})
+        : res.json("Successfully added a Friend!")
+        )
+    .catch((err)=> res.status(500).json(err));
+    },
+// Function to remove a Friend from a User
+    removeFriend(req, res){
+        User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$pull: {friends: {friendId: req.params.friendId}}},
+            {runValidators: true, new: true}
+          )
+          .then((friend)=>
+          !friend
+            ? res.status(404).json({message: 'No Friend with this id!'})
+            : res.json("Friend Deleted!")
+            )
+          .catch((err)=> res.status(500).json(err));
+        },
 };
 
 module.exports = userController;
