@@ -23,7 +23,7 @@ router.route("/:userId").get(userController.getSingleUser).put(userController.up
 router.route("/:userId/addfriend").get(userController.getSingleUser).post(userController.addFriend);
 
 // route /api/users/userId/friends/friendId
-// Get a single user and create a Friend
+// Get a single user and delete a Friend
 router.route("/:userId/friends/friendId").get(userController.getSingleUser).delete(userController.removeFriend);
 
 
