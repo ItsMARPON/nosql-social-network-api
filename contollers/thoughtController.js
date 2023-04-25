@@ -58,6 +58,10 @@ const thoughtController = {
    .then((user)=>{
     res.json(user);
    })
+   .catch((err)=>{
+    console.log(err, "Not able to create a new Thought and push to User's thought array")
+    res.json(err);
+   })
   },
 // Function to Delete a Thought
   deleteThought(req, res){

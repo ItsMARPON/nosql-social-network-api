@@ -5,12 +5,12 @@ const thoughtController = require('../../contollers/thoughtController.js');
 // Get all thoughts
 router.route('/').get(thoughtController.getThoughts);
 
-// Create a Thought
-router.route('/').get(thoughtController.getThoughts).post(thoughtController.createThought);
-
 // route /api/thoughts/thoughtsId
 // Get a single Thought
 router.route('/:thoughtId').get(thoughtController.getSingleThought);
+
+// Create a Thought
+router.route('/').get(thoughtController.getThoughts).post(thoughtController.createThought);
 
 
 // route /api/thoughts/thoughtsId
