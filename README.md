@@ -40,6 +40,8 @@ npm start
 
 Credits to U of M Bootcamp Full-stack Web Development instructional staff, teacher assistants, and Calendly Tutors for assisting with code contributions and/or troubleshooting errors.
 
+Specifically, U of M Bootcamp Full-stack Web Development's use of res.status().json terinary code in controllers folder.
+
 ## License<a name="license"></a>
 
 MIT License (https://opensource.org/licenses/MIT)
