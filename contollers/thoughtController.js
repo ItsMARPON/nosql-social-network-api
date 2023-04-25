@@ -10,7 +10,7 @@ const thoughtController = {
       })
       .catch((err) => {
         console.log(err, "No thoughts!");
-        res.json(err);
+        res.status(500).json(err);
       });
   },
 // Function to get a Thought
@@ -21,7 +21,7 @@ const thoughtController = {
       })
       .catch((err) => {
         console.log(err, "No thought wiht that ID!");
-        res.json(err);
+        res.status(500).json(err);
       });
   },
 // Function to Update a Thought
@@ -32,7 +32,7 @@ const thoughtController = {
       {runValidators: true, new: true}
       )
   .then((thoughts)=>{
-      res.json("Updated a Thought!");
+      res.status(200).json("Updated a Thought!");
   })
   .catch((err)=>{
       console.log(err, "No Thought with that ID!");
@@ -56,22 +56,22 @@ const thoughtController = {
     )
    })
    .then((user)=>{
-    res.json(user);
+    res.status(200).json(user);
    })
    .catch((err)=>{
     console.log(err, "Not able to create a new Thought and push to User's thought array")
-    res.json(err);
+    res.status(500).json(err);
    })
   },
 // Function to Delete a Thought
   deleteThought(req, res){
     Thought.findOneAndDelete({_id: req.params.thoughtId})
     .then((thoughts)=>{
-        res.json("Thought has been deleted");
+        res.status(200).json({message: "Thought has been deleted"});
     })
     .catch((err)=>{
         console.log(err, "Not able to find and delete that Thought!")
-        res.json(err);
+        res.status(500).json(err);
     });
   },
 // Function to add a Reaction
@@ -84,9 +84,9 @@ const thoughtController = {
     .then((thoughts)=>
     !thoughts
       ? res.status(404).json({message: "No Thought with this id!"})
-      : res.json(thoughts, "Successfully added a Reaction!")
+      : res.json("Successfully added a Reaction!")
       )
-    .catch((err)=> res.json(500).json(err));  
+    .catch((err)=> res.status(500).json(err));  
   },
   // Function to remove Reaction by reactionId
   removeReaction(req, res){
