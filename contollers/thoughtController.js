@@ -26,7 +26,8 @@ const thoughtController = {
   },
 // Function to Update a Thought
   updateThought(req, res){
-    Thought.findOneAndUpdate({_id: req.params.userId},
+    Thought.findOneAndUpdate(
+      {_id: req.params.thoughtId},
       {$set: req.body},
       {runValidators: true, new: true}
       )
@@ -85,7 +86,7 @@ const thoughtController = {
   },
   // Function to remove Reaction by reactionId
   removeReaction(req, res){
-    Thought.findOneAndUpdate(
+    Thought.findByIdAndDelete(
       {_id: req.params.thoughtId},
       {$pull: {reactions: {reactionId: req.params.reactionId}}},
       {runValidators: true, new: true}
