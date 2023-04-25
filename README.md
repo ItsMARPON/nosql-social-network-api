@@ -28,6 +28,8 @@ Nodemon <br />
 
 ![Screenshot of NoSQL Social Network API command line](./assets/images/nosql-socialnetwork-commandline1.png)<br />
 ![Screenshot of NoSQL Social Network API Insomnia](./assets/images/nosql-socialnetwork-insomnia1.png)<br />
+![Screenshot of NoSQL Social Network API in MongoDB](./assets/images/nosql-socialnetwork-mongodbusers2.png)<br />
+![Screenshot of NoSQL Social Network API in MongoDB](./assets/images/nosql-socialnetwork-mongodbthoughts1.png)<br />
 
 Video Walk through of using NoSQL Social Network API: ()<br />
 
