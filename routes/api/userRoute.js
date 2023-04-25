@@ -24,7 +24,7 @@ router.route('/:userId/addfriend').put(userController.addFriend);
 
 // route /api/users/userId/friends/friendId
 // Get a single user and delete a Friend
-router.route('/:userId/friends/friendId').delete(userController.removeFriend);
+router.route('/:userId/friends/:friendId').delete(userController.removeFriend);
 
 
 module.exports = router;
