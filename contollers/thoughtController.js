@@ -20,7 +20,7 @@ const thoughtController = {
         res.json(thoughts);
       })
       .catch((err) => {
-        console.log(err, "No thought wiht that ID!");
+        console.log(err, "No thought with that ID!");
         res.status(500).json(err);
       });
   },

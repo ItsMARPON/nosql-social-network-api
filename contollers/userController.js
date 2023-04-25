@@ -27,7 +27,7 @@ const userController = {
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .then((users) => {
-        res.json(users);
+        res.status(200).json(users);
       })
       .catch((err) => {
         console.log(err, "No user with that ID!");
@@ -123,9 +123,9 @@ const userController = {
   },
   // Function to remove a Friend from a User
   removeFriend(req, res) {
-    User.findByIdAndDelete(
+    User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { friendId: req.params.friendId } } },
+      { $pull: { friends: { friends : req.params.friendId } } },
       { runValidators: true, new: true }
     )
       .then((friend) =>
