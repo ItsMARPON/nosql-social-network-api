@@ -5,20 +5,14 @@ const { path } = require("../models/Reaction");
 const userController = {
   // Get all  Users
   getAllUsers(req, res) {
-    User.find({})
-      .populate({
-        path: "friends",
-        select: "-__v"
-      })
-      .populate({
-        path: "thoughts",
-        select: "-__v"
-      })
-      
-      .select("-__v")
-      .then((users) => {
-        res.json(users);
-      })
+    User.find()
+      .select('-__v')
+      .populate('friends')
+      .then((users) => 
+      !users
+      ? res.status(404).json({message: "User ID cannot be found"})
+      : res.status(200).json(users)
+      )
       .catch((err) => {
         res.status(500).json(err);
       });
@@ -26,11 +20,15 @@ const userController = {
   // Function to get a User
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
-      .then((users) => {
-        res.status(200).json(users);
-      })
+      .select('-__v')
+      .populate('friends')
+      .then((users) => 
+        !users
+        ? res.status(404).json({message: "User ID cannot be found"})
+        : res.status(200).json(users)
+      )
       .catch((err) => {
-        console.log(err, "No user with that ID!");
+        console.log("No user with that ID!");
         res.status(500).json(err);
       });
   },
@@ -99,9 +97,7 @@ const userController = {
       )
       .then((user) =>
         !user
-          ? res
-              .status(404)
-              .json({ message: "Thought created but no user with this id!" })
+          ? res.status(404).json({ message: "Thought created but no user with this id!" })
           : res.json({ message: "Thought successfully deleted!" })
       )
 

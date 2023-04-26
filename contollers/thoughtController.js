@@ -5,24 +5,22 @@ const thoughtController = {
   // Function to get all Thoughts
   getThoughts(req, res) {
     Thought.find()
-      .then((thoughts) => {
-        res.json(thoughts);
-      })
-      .catch((err) => {
-        console.log(err, "No thoughts!");
-        res.status(500).json(err);
-      });
+      .then((thoughts) => 
+        !thoughts
+        ? res.status(404).json({message: "No Thoughts"})
+        : res.json(thoughts)
+      )
+      .catch((err) => res.status(500).json(err));
   },
 // Function to get a Thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .then((thoughts) => {
-        res.json(thoughts);
-      })
-      .catch((err) => {
-        console.log(err, "No thought with that ID!");
-        res.status(500).json(err);
-      });
+      .then((thoughts) => 
+        !thoughts
+        ? res.status(404).json({message: "No Thought with this ID"})
+        : res.json(thoughts)
+      )
+      .catch((err) => res.status(500).json(err));
   },
 // Function to Update a Thought
   updateThought(req, res){
@@ -31,11 +29,12 @@ const thoughtController = {
       {$set: req.body},
       {runValidators: true, new: true}
       )
-  .then((thoughts)=>{
-      res.status(200).json("Updated a Thought!");
-  })
+  .then((thoughts)=>
+    !thoughts
+    ? res.status(404).json({message: "No Thought with this ID"})
+    : res.json(thoughts)
+  )
   .catch((err)=>{
-      console.log(err, "No Thought with that ID!");
       res.status(500).json(err);
   })
   },
@@ -55,22 +54,26 @@ const thoughtController = {
       }
     )
    })
-   .then((user)=>{
-    res.status(200).json(user);
-   })
+   .then((user)=>
+    !user
+    ? res.status(404).json({ message: "User id not Found!" })
+    : res.json(user)
+   )
    .catch((err)=>{
-    console.log(err, "Not able to create a new Thought and push to User's thought array")
+    console.log("Not able to create a new Thought and push to User's thought array")
     res.status(500).json(err);
    })
   },
 // Function to Delete a Thought
   deleteThought(req, res){
     Thought.findOneAndDelete({_id: req.params.thoughtId})
-    .then((thoughts)=>{
-        res.status(200).json({message: "Thought has been deleted"});
-    })
+    .then((thoughts)=>
+      !thoughts
+        ? res.status(404).json({message: "Thought ID Not Found"})
+        : res.status(200).json({message: "Thought has been deleted"})
+    )
     .catch((err)=>{
-        console.log(err, "Not able to find and delete that Thought!")
+        console.log("Not able to find and delete that Thought!")
         res.status(500).json(err);
     });
   },
@@ -83,7 +86,7 @@ const thoughtController = {
     )
     .then((thoughts)=>
     !thoughts
-      ? res.status(404).json({message: "No Thought with this id!"})
+      ? res.status(404).json({message: "Thought ID cannot be found!"})
       : res.json("Successfully added a Reaction!")
       )
     .catch((err)=> res.status(500).json(err));  
@@ -97,7 +100,7 @@ const thoughtController = {
     )
     .then((reactions)=>
     !reactions
-      ? res.status(404).json({message: 'No reaction with this id!'})
+      ? res.status(404).json({message: 'No Reaction with this id!'})
       : res.json("Reaction Deleted!")
       )
     .catch((err)=> res.status(500).json(err));
