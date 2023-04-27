@@ -31,7 +31,7 @@ Nodemon <br />
 ![Screenshot of NoSQL Social Network API in MongoDB](./assets/images/nosql-socialnetwork-mongodbusers2.png)<br />
 ![Screenshot of NoSQL Social Network API in MongoDB](./assets/images/nosql-socialnetwork-mongodbthoughts1.png)<br />
 
-Video Walk through of using NoSQL Social Network API: ()<br />
+Video Walk through of using NoSQL Social Network API: (https://watch.screencastify.com/v/V8bWEOJwHRERY6ySUj3K)<br />
 
 In the command line of GitBash or Powershell, type the following to begin the NoSQL Social Network:<br />
 npm start
