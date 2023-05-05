@@ -8,11 +8,11 @@ During this build, I was able to learn the fundamentals of building a NoSQL data
 
 ## Table of Contents
 
--[Installation](#installation)
--[Usage](#usage)
--[Credits](#credits)
--[License](#license)
--[Questions](#questions)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+- [Questions](#questions)
 
 ## Installaton<a name="installation"></a>
 
